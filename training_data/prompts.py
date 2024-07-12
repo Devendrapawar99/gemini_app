@@ -104,183 +104,10 @@ prompt = [
     Example 11 - Give me the count of orders from the sharjah branch.
     The MongoDB command will be like this: {"aggregate": [{"$match": {"Branch.BranchName": "re.life (FZE) Sharjah"}}, {"$group": {"_id": null, "count": {"$sum": 1}}}]}
 
-    Example 12 - Give me the total count of orders for january 2024.
-    The MongoDB command will be like this: {
-        "aggregate": [
-            {
-                "$match": {
-                    "ScheduledDate": {
-                        "$gte": 1704128000000,
-                        "$lt": 1706678000000
-                    }
-                }
-            },
-            {
-                "$group": {
-                    "_id": null,
-                    "count": {
-                        "$sum": 1
-                    }
-                }
-            }
-        ]
-    }
+    Example 12 - Count of orders which were sent cross border.
+    The MongoDB command will be like this: {"aggregate": [{"$match": {"Type": "cross_border"}}, {"$group": {"_id": null, "count": {"$sum": 1}}}]}
 
-    Example 13 - Give me the total count of orders for february 2024.
-    The MongoDB command will be like this: {
-        "aggregate": [
-            {
-                "$match": {
-                    "ScheduledDate": {
-                        "$gte": 1706728000000,
-                        "$lt": 1709205200000
-                    }
-                }
-            },
-            {
-                "$group": {
-                    "_id": null,
-                    "count": {
-                        "$sum": 1
-                    }
-                }
-            }
-        ]
-    }
-
-    Example 14 - Give me the total count of orders for march 2024.
-    The MongoDB command will be like this: {
-        "aggregate": [
-            {
-                "$match": {
-                    "ScheduledDate": {
-                        "$gte": 1709302000000,
-                        "$lt": 1711902000000
-                    }
-                }
-            },
-            {
-                "$group": {
-                    "_id": null,
-                    "count": {
-                        "$sum": 1
-                    }
-                }
-            }
-        ]
-    }
-
-    Example 15 - Give me the total count of orders for april 2024.
-    The MongoDB command will be like this: {
-        "aggregate": [
-            {
-                "$match": {
-                    "ScheduledDate": {
-                        "$gte": 1711912000000,
-                        "$lt": 1714460000000
-                    }
-                }
-            },
-            {
-                "$group": {
-                    "_id": null,
-                    "count": {
-                        "$sum": 1
-                    }
-                }
-            }
-        ]
-    }
-
-    Example 16 - Give me the total count of orders for may 2024.
-    The MongoDB command will be like this: {
-        "aggregate": [
-            {
-                "$match": {
-                    "ScheduledDate": {
-                        "$gte": 1714550000000,
-                        "$lt": 1717150000000
-                    }
-                }
-            },
-            {
-                "$group": {
-                    "_id": null,
-                    "count": {
-                        "$sum": 1
-                    }
-                }
-            }
-        ]
-    }
-
-    Example 17 - Give me the total count of orders for june 2024.
-    The MongoDB command will be like this: {
-        "aggregate": [
-            {
-                "$match": {
-                    "ScheduledDate": {
-                        "$gte": 1717200000000,
-                        "$lt": 1719771600000
-                    }
-                }
-            },
-            {
-                "$group": {
-                    "_id": null,
-                    "count": {
-                        "$sum": 1
-                    }
-                }
-            }
-        ]
-    }
-
-    Example 18 - Give me the total count of orders for july 2024.
-    The MongoDB command will be like this: {
-        "aggregate": [
-            {
-                "$match": {
-                    "ScheduledDate": {
-                        "$gte": 1719779200000,
-                        "$lt": 1722370800000
-                    }
-                }
-            },
-            {
-                "$group": {
-                    "_id": null,
-                    "count": {
-                        "$sum": 1
-                    }
-                }
-            }
-        ]
-    }
-
-    Example 19 - Give me the total count of orders for august 2024.
-    The MongoDB command will be like this: {
-        "aggregate": [
-            {
-                "$match": {
-                    "ScheduledDate": {
-                        "$gte": 1722451200000,
-                        "$lt": 1725043200000
-                    }
-                }
-            },
-            {
-                "$group": {
-                    "_id": null,
-                    "count": {
-                        "$sum": 1
-                    }
-                }
-            }
-        ]
-    }
-
-    Example 20 - Give me the total count of orders for april 2023.
+    Example 13 - Give me the total count of orders for april 2023.
     The MongoDB command will be like this: {
         "aggregate": [
             {
@@ -302,14 +129,14 @@ prompt = [
         ]
     }
 
-    Example 21 - Give me the total count of orders for may 2023.
+    Example 14 - Give me the total count of orders for june 2023.
     The MongoDB command will be like this: {
         "aggregate": [
             {
                 "$match": {
                     "ScheduledDate": {
-                        "$gte": 1682939400000,
-                        "$lt": 1685439400000
+                        "$gte": 1685639400000,
+                        "$lt": 1688119400000
                     }
                 }
             },
@@ -324,8 +151,203 @@ prompt = [
         ]
     }
 
-    Example 22 - orders which were sent cross border.
-    The MongoDB command will be like this: {"aggregate": [{"$match": {"Type": "cross_border"}}, {"$group": {"_id": null, "count": {"$sum": 1}}}]}
+    Example 15 - Give me the total count of orders for june 2023.
+    The MongoDB command will be like this: {
+        "aggregate": [
+            {
+                "$match": {
+                    "ScheduledDate": {
+                        "$gte": 1685639400000,
+                        "$lt": 1687999400000
+                    }
+                }
+            },
+            {
+                "$group": {
+                    "_id": null,
+                    "count": {
+                        "$sum": 1
+                    }
+                }
+            }
+        ]
+    }
+
+    Example 16 - Give me the total count of orders for january 2024.
+    The MongoDB command will be like this: {
+        "aggregate": [
+            {
+                "$match": {
+                    "ScheduledDate": {
+                        "$gte": 1704128000000,
+                        "$lt": 1706678000000
+                    }
+                }
+            },
+            {
+                "$group": {
+                    "_id": null,
+                    "count": {
+                        "$sum": 1
+                    }
+                }
+            }
+        ]
+    }
+
+    Example 17 - Give me the total count of orders for february 2024.
+    The MongoDB command will be like this: {
+        "aggregate": [
+            {
+                "$match": {
+                    "ScheduledDate": {
+                        "$gte": 1706728000000,
+                        "$lt": 1709205200000
+                    }
+                }
+            },
+            {
+                "$group": {
+                    "_id": null,
+                    "count": {
+                        "$sum": 1
+                    }
+                }
+            }
+        ]
+    }
+
+    Example 18 - Give me the total count of orders for march 2024.
+    The MongoDB command will be like this: {
+        "aggregate": [
+            {
+                "$match": {
+                    "ScheduledDate": {
+                        "$gte": 1709302000000,
+                        "$lt": 1711902000000
+                    }
+                }
+            },
+            {
+                "$group": {
+                    "_id": null,
+                    "count": {
+                        "$sum": 1
+                    }
+                }
+            }
+        ]
+    }
+
+    Example 19 - Give me the total count of orders for april 2024.
+    The MongoDB command will be like this: {
+        "aggregate": [
+            {
+                "$match": {
+                    "ScheduledDate": {
+                        "$gte": 1711912000000,
+                        "$lt": 1714460000000
+                    }
+                }
+            },
+            {
+                "$group": {
+                    "_id": null,
+                    "count": {
+                        "$sum": 1
+                    }
+                }
+            }
+        ]
+    }
+
+    Example 20 - Give me the total count of orders for may 2024.
+    The MongoDB command will be like this: {
+        "aggregate": [
+            {
+                "$match": {
+                    "ScheduledDate": {
+                        "$gte": 1714550000000,
+                        "$lt": 1717150000000
+                    }
+                }
+            },
+            {
+                "$group": {
+                    "_id": null,
+                    "count": {
+                        "$sum": 1
+                    }
+                }
+            }
+        ]
+    }
+
+    Example 21 - Give me the total count of orders for june 2024.
+    The MongoDB command will be like this: {
+        "aggregate": [
+            {
+                "$match": {
+                    "ScheduledDate": {
+                        "$gte": 1717200000000,
+                        "$lt": 1719771600000
+                    }
+                }
+            },
+            {
+                "$group": {
+                    "_id": null,
+                    "count": {
+                        "$sum": 1
+                    }
+                }
+            }
+        ]
+    }
+
+    Example 22 - Give me the total count of orders for july 2024.
+    The MongoDB command will be like this: {
+        "aggregate": [
+            {
+                "$match": {
+                    "ScheduledDate": {
+                        "$gte": 1719779200000,
+                        "$lt": 1722370800000
+                    }
+                }
+            },
+            {
+                "$group": {
+                    "_id": null,
+                    "count": {
+                        "$sum": 1
+                    }
+                }
+            }
+        ]
+    }
+
+    Example 23 - Give me the total count of orders for august 2024.
+    The MongoDB command will be like this: {
+        "aggregate": [
+            {
+                "$match": {
+                    "ScheduledDate": {
+                        "$gte": 1722451200000,
+                        "$lt": 1725043200000
+                    }
+                }
+            },
+            {
+                "$group": {
+                    "_id": null,
+                    "count": {
+                        "$sum": 1
+                    }
+                }
+            }
+        ]
+    }
 
     The query code should be a valid MongoDB query in JSON format.
     """

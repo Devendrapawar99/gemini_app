@@ -6,6 +6,7 @@ import json
 import math
 from dotenv import load_dotenv
 import google.generativeai as genai  # Ensure this is the correct package name
+from training_data.prompts import prompt
 
 # Load environment variables
 load_dotenv()
@@ -62,143 +63,8 @@ def read_mongo_query(query, db_name, collection_name, page=1, limit=10):
         client.close()
     return rows, total_count
 
-prompt = [
-    """
-    You are an expert in converting English questions to MongoDB queries!
-    The MongoDB collection has the name ORDERS and has the following fields:
-    
-    - _id
-    - PK
-    - UserDetails (Object)
-        - phoneNumber
-        - emirate
-        - phone
-        - rate
-        - erpCode
-        - fullName
-        - email
-        - RecordType
-        - Status
-        - PriceTTC
-        - HaulerPrice
-        - UOM
-        - ScheduledDate
-    - SalesPerson (Object)
-        - SK
-        - name
-        - pk
-        - phoneNumber
-        - RecordType
-        - email
-        - Price
-        - CreatedAt
-    - VehicleDetails (Object)
-        - HelpersNumber
-        - Category
-        - Description
-        - InstallerNumber
-        - VehicleTypeAr
-        - CategoryAr
-        - VehicleType
-        - SK
-        - PK
-        - Image
-        - DescriptionAr
-        - Data
-        - BranchId
-    - Inquiry (Object)
-        - SalesPrice
-        - Type
-        - OrderId
-    - Customer (Object)
-        - PK
-        - BranchId
-        - Email
-        - Phone
-        - FullName
-        - TargetBuyingPrice
-        - SK
-        - CostPrice
-        - InquiryNoOfVehicles
-        - NoOfVehicles
-        - HaulerPriceTTC
-        - Type
-        - OrderId
-    - SourcePerson (Object)
-        - sk
-        - name
-        - pk
-        - phoneNumber
-        - RecordType
-        - email
-    - Branch (Object)
-        - SK
-        - BranchName
-        - PK
-        - CompanyCode
-        - Currency
-    - CreatedAt
-    - UpdatedAt
 
-    
-    Example 1 - Tell me all the orders in Abu Dhabi?
-    The MongoDB command will be like this: {"filter": {"UserDetails.emirate": "Abu Dhabi"}}
 
-    Example 2 - Give me the order details for order ID "Order#1719578812822"?
-    The MongoDB command will be like this: {"filter": {"PK": "Order#1719578812822"}}
-
-    Example 3 - Give me the Status of the order with ID "Order#1719578812362"?
-    The MongoDB command will be like this: {"filter": {"PK": "Order#1719578812362"}, "fields": ["Status"]}
-
-    Example 4 - Give me the total of all orders price?
-    The MongoDB command will be like this: {"aggregate": [{"$group": {"_id": null, "totalPrice": {"$sum": "$PriceTTC"}}}]}
-
-    Example 5 - Give me the SalesPrice of the order with ID "Order#1719578812822"?
-    The MongoDB command will be like this: {"filter": {"PK": "Order#1719578812822"}, "fields": ["Inquiry.SalesPrice"]}
-
-    Example 6 - Give me the CostPrice of the order with ID "Order#1719578812822"?
-    The MongoDB command will be like this: {"filter": {"PK": "Order#1719578812822"}, "fields": ["Inquiry.CostPrice"]}
-
-    Example 7 - Give me the orders managed by Salesperson Joseph Daniel.
-    The MongoDB command will be something like this: {"filter": {"SalesPerson.name": "Joseph Daniel"}}
-
-    Example 8 - Example: Give me the count of orders managed by Salesperson Joseph Daniel.
-    The MongoDB command will be like this: {"aggregate": [{"$match": {"SalesPerson.name": "Joseph Daniel"}}, {"$group": {"_id": null, "count": {"$sum": 1}}}]}
-
-    Example 9 - Give me the count of orders with status "pending".
-    The MongoDB command will be like this: {"filter": {"Status": "pending"}}
-
-    Example 10 - Give me the total enterprise orders.
-    The MongoDB command will be like this: {"aggregate": [{"$match": {"Inquiry.Type": "move_enterprise"}}, {"$group": {"_id": null, "count": {"$sum": 1}}}]}
-
-    Example 11 - Give me the count of orders from the Sharjah branch.
-    The MongoDB command will be like this: {"aggregate": [{"$match": {"Branch.BranchName": "re.life (FZE) Sharjah"}}, {"$group": {"_id": null, "count": {"$sum": 1}}}]}
-
-    Example 12 - Give me the total count of orders for july 2024.
-    The MongoDB command will be like this: {
-        "aggregate": [
-            {
-                "$match": {
-                    "ScheduledDate": {
-                        "$gte": 1719792000000,
-                        "$lt": 1722384000000
-                    }
-                }
-            },
-            {
-                "$group": {
-                    "_id": null,
-                    "count": {
-                        "$sum": 1
-                    }
-                }
-            }
-        ]
-    }
-
-    The query code should be a valid MongoDB query in JSON format.
-    """
-]
 
 # Streamlit App
 st.set_page_config(page_title="Text To MongoDB Query App")
