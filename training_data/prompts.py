@@ -84,13 +84,13 @@ prompt = [
     The MongoDB command will be like this: {"filter": {"OrderId": "240600278-2"}, "fields": ["Status"]}
 
     Example 4 - Give me the total of all orders price?
-    The MongoDB command will be like this: {"aggregate": [{"$group": {"_id": null, "totalPrice": {"$sum": "$Price"}}}]}
+    The MongoDB command will be like this: {"aggregate": [{"$group": {"_id": null, "count": {"$sum": "$Price"}}}]}
 
     Example 5 - Give me the SalesPrice of the order with ID "240600278-2"?
-    The MongoDB command will be like this: {"filter": {"OrderId": "Order#1719578812822"}, "fields": ["Inquiry.SalesPrice"]}
+    The MongoDB command will be like this: {"filter": {"OrderId": "Order#1719578812822"}, "count": ["Inquiry.SalesPrice"]}
 
     Example 6 - Give me the CostPrice of the order with ID "240600278-2"?
-    The MongoDB command will be like this: {"filter": {"OrderId": "240600278-2"}, "fields": ["Inquiry.CostPrice"]}
+    The MongoDB command will be like this: {"filter": {"OrderId": "240600278-2"}, "count": ["Inquiry.CostPrice"]}
 
     Example 8 - Example: Give me the count of orders managed by Salesperson joseph daniel.
     The MongoDB command will be like this: {"aggregate": [{"$match": {"SalesPerson.name": "Joseph Daniel"}}, {"$group": {"_id": null, "count": {"$sum": 1}}}]}
@@ -114,7 +114,7 @@ prompt = [
                 "$match": {
                     "ScheduledDate": {
                         "$gte": 1680290400000,
-                        "$lt": 1682809400000
+                        "$lte": 1682809400000
                     }
                 }
             },
@@ -136,7 +136,7 @@ prompt = [
                 "$match": {
                     "ScheduledDate": {
                         "$gte": 1685639400000,
-                        "$lt": 1688119400000
+                        "$lte": 1688119400000
                     }
                 }
             },
@@ -158,7 +158,7 @@ prompt = [
                 "$match": {
                     "ScheduledDate": {
                         "$gte": 1685639400000,
-                        "$lt": 1687999400000
+                        "$lte": 1687999400000
                     }
                 }
             },
@@ -180,7 +180,7 @@ prompt = [
                 "$match": {
                     "ScheduledDate": {
                         "$gte": 1704128000000,
-                        "$lt": 1706678000000
+                        "$lte": 1706678000000
                     }
                 }
             },
@@ -202,7 +202,7 @@ prompt = [
                 "$match": {
                     "ScheduledDate": {
                         "$gte": 1706728000000,
-                        "$lt": 1709205200000
+                        "$lte": 1709205200000
                     }
                 }
             },
@@ -224,7 +224,7 @@ prompt = [
                 "$match": {
                     "ScheduledDate": {
                         "$gte": 1709302000000,
-                        "$lt": 1711902000000
+                        "$lte": 1711902000000
                     }
                 }
             },
@@ -246,7 +246,7 @@ prompt = [
                 "$match": {
                     "ScheduledDate": {
                         "$gte": 1711912000000,
-                        "$lt": 1714460000000
+                        "$lte": 1714460000000
                     }
                 }
             },
@@ -268,7 +268,7 @@ prompt = [
                 "$match": {
                     "ScheduledDate": {
                         "$gte": 1714550000000,
-                        "$lt": 1717150000000
+                        "$lte": 1717150000000
                     }
                 }
             },
@@ -290,7 +290,7 @@ prompt = [
                 "$match": {
                     "ScheduledDate": {
                         "$gte": 1717200000000,
-                        "$lt": 1719771600000
+                        "$lte": 1719771600000
                     }
                 }
             },
@@ -312,7 +312,7 @@ prompt = [
                 "$match": {
                     "ScheduledDate": {
                         "$gte": 1719779200000,
-                        "$lt": 1722370800000
+                        "$lte": 1722370800000
                     }
                 }
             },
@@ -334,7 +334,7 @@ prompt = [
                 "$match": {
                     "ScheduledDate": {
                         "$gte": 1722451200000,
-                        "$lt": 1725043200000
+                        "$lte": 1725043200000
                     }
                 }
             },
@@ -348,6 +348,52 @@ prompt = [
             }
         ]
     }
+
+    Example 24 - What is the revenue of last month?
+    The MongoDB command will be like this: {
+        "aggregate": [
+           {
+                "$match": {
+                    "ScheduledDate": {
+                    "$gte": 1717200000000,
+                    "$lte": 1719771600000
+                    }
+                }
+           },
+        {
+            "$group": {
+                "_id": null,
+                "revenue": {
+                    "$sum": "$Price"
+                    }
+                }
+            }
+        ]
+   }
+
+    Example 23 - What is the revenue for past 6 months?
+    The MongoDB command will be like this: {
+        "aggregate": [
+            {
+                "$match": {
+                    "ScheduledDate": {
+                        "$gte": 1704128000000,
+                        "$lte": 1719771600000
+                    }
+                }
+            },
+            {
+                "$group": {
+                    "_id": null,
+                    "count": {
+                        "$sum": 1
+                    }
+                }
+            }
+        ]
+    }
+
+
 
     The query code should be a valid MongoDB query in JSON format.
     """

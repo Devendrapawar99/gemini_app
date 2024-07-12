@@ -102,6 +102,8 @@ def ask_question():
             answer = f"The result is {data[0]['totalPrice']}"
         elif 'totalRevenue' in data[0]:
             answer = f"The result is {data[0]['totalRevenue']}"
+        elif 'revenue' in data[0]:
+            answer = f"The result is {data[0]['revenue']}"
         else:
             answer = f"In format : The result is {data[0]}"
 
@@ -153,6 +155,8 @@ def ask_question_query():
             answer = f"The result is {data[0]['totalPrice']}"
         elif 'totalRevenue' in data[0]:
             answer = f"The result is {data[0]['totalRevenue']}"
+        elif 'revenue' in data[0]:
+            answer = f"The result is {data[0]['revenue']}"
         else:
             answer = f"In format : The result is {data[0]}"
 
@@ -160,7 +164,8 @@ def ask_question_query():
             "answer": answer,
             "data": data,
             "total_pages": total_pages,
-            "current_page": page
+            "current_page": page,
+            "executed_query" : ""
         }), 200
 
     except KeyError as e:
