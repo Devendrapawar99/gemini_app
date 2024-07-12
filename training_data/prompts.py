@@ -371,7 +371,7 @@ prompt = [
         ]
    }
 
-    Example 23 - What is the revenue for past 6 months?
+    Example 25 - What is the revenue for past 6 months?
     The MongoDB command will be like this: {
         "aggregate": [
             {
@@ -387,6 +387,53 @@ prompt = [
                     "_id": null,
                     "count": {
                         "$sum": 1
+                    }
+                }
+            }
+        ]
+    }
+
+
+    Example 26 - What is the revenue for the user 'Star cement co LLC' in june 2024?
+    The MongoDB command will be like this: {
+    "aggregate": [
+        {
+            "$match": {
+                "UserDetails.fullName": {"$regex": ".*Star cement co LLC.*", "$options": "i"},
+                "ScheduledDate": {
+                    "$gte": 1717200000000,
+                    "$lt": 1719771600000
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "totalRevenue": {
+                    "$sum": "$Price"
+                    }
+                }
+            }
+        ]
+    }
+
+     Example 27 - What is the revenue generated from Renje Ramesan for last month?
+    The MongoDB command will be like this: {
+        "aggregate": [
+            {
+                "$match": {
+                    "SalesPerson.name": {"$regex": ".*Renje Ramesan.*", "$options": "i"},
+                    "ScheduledDate": {
+                        "$gte": 1719779200000,
+                        "$lte": 1722370800000
+                    }
+                }
+            },
+            {
+                "$group": {
+                    "_id": null,
+                    "totalRevenue": {
+                        "$sum": "$Price"
                     }
                 }
             }
