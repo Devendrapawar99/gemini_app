@@ -86,7 +86,7 @@ def ask_question():
         data, total_count, executed_query = read_mongo_query(response, "reportschat", "orders", page, limit)
         
         if not data:
-            return jsonify({"message": "No data found"}), 200
+            return jsonify({"answer": "No data found"}), 200
         
         total_pages = math.ceil(total_count / limit)
         
@@ -140,7 +140,7 @@ def ask_question_query():
         data, total_count, executed_query = read_mongo_query(response, "reportschat", "orders", page, limit)
         
         if not data:
-            return jsonify({"message": "No data found"}), 200
+            return jsonify({"answer": "No data found"}), 200
         
         total_pages = math.ceil(total_count / limit)
         
