@@ -69,6 +69,7 @@ def read_mongo_query(query, db_name, collection_name, page=1, limit=10):
         rows = []
     return rows, total_count
 
+
 @app.route('/ask', methods=['POST'])
 def ask_question():
     data = request.json
@@ -79,23 +80,44 @@ def ask_question():
     if not question:
         return jsonify({"error": "Question is required"}), 400
 
-    response = get_gemini_response(question)
-    print(f"Generated MongoDB query: {response}")  # Display the generated MongoDB query
-    
-    data, total_count = read_mongo_query(response, "mytest", "orders", page, limit)
-    
-    if not data:
-        return jsonify({"message": "No data found"}), 200
-    
-    total_pages = math.ceil(total_count / limit)
-    
-    return jsonify({
-        "data": data,
-        "total_pages": total_pages,
-        "current_page": page
-    }), 200
+    try:
+        response = get_gemini_response(question)
+        print(f"Generated MongoDB query: {response}")  # Display the generated MongoDB query
+        
+        data, total_count = read_mongo_query(response, "reportschat", "orders", page, limit)
+        
+        if not data:
+            return jsonify({"message": "No data found"}), 200
+        
+        total_pages = math.ceil(total_count / limit)
+        
+        # Determine the key and format the answer accordingly
+        if 'count' in data[0]:
+            answer = f"The result is {data[0]['count']}"
+        elif 'avgPrice' in data[0]:
+            answer = f"The result is {data[0]['avgPrice']}"
+        elif 'averagePrice' in data[0]:
+            answer = f"The result is {data[0]['averagePrice']}"
+        elif 'totalPrice' in data[0]:
+            answer = f"The result is {data[0]['totalPrice']}"
+        elif 'totalRevenue' in data[0]:
+            answer = f"The result is {data[0]['totalRevenue']}"
+        else:
+            answer = f"In format : The result is {data[0]}"
+
+        return jsonify({
+            "answer": answer,
+            "data": data,
+            "total_pages": total_pages,
+            "current_page": page
+        }), 200
+
+    except KeyError as e:
+        return jsonify({"error": f"KeyError: {str(e)}"}), 500
+    except Exception as e:
+        return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)
 
-    app.run(debug=True)
