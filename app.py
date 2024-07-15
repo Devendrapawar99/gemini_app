@@ -90,9 +90,9 @@ if submit:
 # Fetch the data only if there is a response in session state
 if "response" in st.session_state:
     try:
-        data, total_count = read_mongo_query(st.session_state.response, "mytest", "orders", st.session_state.page, limit)
+        data, total_count = read_mongo_query(st.session_state.response, "reportschat", "orders", st.session_state.page, limit)
         st.subheader("The Response is:")
-
+        print(data,"------------data")
         if data:
             for row in data:
                 st.json(row)  # Display the row in JSON format

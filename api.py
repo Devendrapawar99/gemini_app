@@ -84,7 +84,7 @@ def ask_question():
         print(f"Generated MongoDB query: {response}")  # Display the generated MongoDB query
         
         data, total_count, executed_query = read_mongo_query(response, "reportschat", "orders", page, limit)
-        
+        print(data,"--------------data")
         if not data:
             return jsonify({"answer": "No data found"}), 200
         
@@ -103,15 +103,15 @@ def ask_question():
             answer = f"The result is {data[0]['totalRevenue']}"
         elif 'revenue' in data[0]:
             answer = f"The result is {data[0]['revenue']}"
+        elif 'customerwisePrice' in data[0]:
+           answer = "The result is: " + ", ".join([f"name: {item['_id']}, price: {item['customerwisePrice']}" for item in data])
         else:
-            answer = f"In format : The result is {data[0]}"
+            answer = {"result": data}
 
         return jsonify({
             "answer": answer,
             "data": data,
-            "total_pages": total_pages,
-            "current_page": page,
-            "executed_query": executed_query  # Add the executed query to the response
+            "executed_query": executed_query
         }), 200
 
     except KeyError as e:
@@ -119,14 +119,13 @@ def ask_question():
     except Exception as e:
         return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
 
-#/rag/query/run_mongo_query?user_query=   [GET]  
 
 
+
+# API to get the params 
 @app.route('/rag/query/run_mongo_query', methods=['GET'])
 def ask_question_query():
-    # data = request.json
     question = request.args.get('user_query')
-    # question = data.get("question")
     page = 1
     limit = 100
     
@@ -135,7 +134,7 @@ def ask_question_query():
 
     try:
         response = get_gemini_response(question)
-        print(f"Generated MongoDB query: {response}")  # Display the generated MongoDB query
+        print(f"Generated MongoDB query: {response}")
         
         data, total_count, executed_query = read_mongo_query(response, os.getenv("DATABASE"), os.getenv("TABLE"), page, limit)
         
@@ -157,16 +156,17 @@ def ask_question_query():
             answer = f"The result is {data[0]['totalRevenue']}"
         elif 'revenue' in data[0]:
             answer = f"The result is {data[0]['revenue']}"
+        elif 'customerwisePrice' in data[0]:
+           answer = "The result is: " + ", ".join([f"name: {item['_id']}, price: {item['customerwisePrice']}" for item in data])
         else:
-            answer = f"In format : The result is {data[0]}"
+            answer = {"result": data}
 
         return jsonify({
             "answer": answer,
             "data": data,
-            "total_pages": total_pages,
-            "current_page": page,
-            "executed_query": executed_query  # Add the executed query to the response
+            "executed_query": executed_query
         }), 200
+
 
     except KeyError as e:
         return jsonify({"error": f"KeyError: {str(e)}"}), 500
