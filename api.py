@@ -133,8 +133,8 @@ def ask_question_query():
         response = get_gemini_response(question)
         print(f"Generated MongoDB query: {response}")  # Display the generated MongoDB query
         
-        data, total_count, executed_query = read_mongo_query(response, "reportschat", "orders", page, limit)
-        print(data,"--------------data")
+        data, total_count, executed_query = read_mongo_query(response, os.getenv("DATABASE"), os.getenv("TABLE"), page, limit)
+        
         if not data:
             return jsonify({"answer": "No data found"}), 200
         
