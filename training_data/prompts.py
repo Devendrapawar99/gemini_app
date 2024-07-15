@@ -465,7 +465,7 @@ prompt = [
     The MongoDB command will be like this: {
         "aggregate": [
             { "$match": {"UserDetails.fullName": {"$regex": ".*star cement co LLC.*", "$options": "i"}}},
-            { "$group": {"_id": "$UserDetails.fullName", "customerwisePrice": { "$sum": "$PriceTTC" }}}
+            { "$group": {"_id": "$UserDetails.fullName", "customerwisePrice": { "$sum": "$Price" }}}
         ]
     }
 
@@ -473,7 +473,7 @@ prompt = [
     The MongoDB command will be like this: {
         "aggregate": [
             { "$match": {"UserDetails.fullName": {"$regex": ".*star cement co LLC.*", "$options": "i"}}},
-            { "$group": {"_id": "$UserDetails.fullName", "customerwisePrice": { "$sum": "$PriceTTC" }}}
+            { "$group": {"_id": "$UserDetails.fullName", "customerwisePrice": { "$sum": "$Price" }}}
         ]
     }
 
@@ -481,7 +481,7 @@ prompt = [
     The MongoDB command will be like this: {
         "aggregate": [
             { "$match": {"UserDetails.fullName": {"$regex": ".*star cement co LLC.*", "$options": "i"}}},
-            { "$group": {"_id": "$UserDetails.fullName", "customerwisePrice": { "$sum": "$PriceTTC" }}}
+            { "$group": {"_id": "$UserDetails.fullName", "customerwisePrice": { "$sum": "$Price" }}}
         ]
     }
 
@@ -498,7 +498,7 @@ prompt = [
                 }
             }
         },
-         { "$group": {"_id": "$UserDetails.fullName", "customerwisePrice": { "$sum": "$PriceTTC" }}}
+         { "$group": {"_id": "$UserDetails.fullName", "customerwisePrice": { "$sum": "$Price" }}}
         ]
     }
 
