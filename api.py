@@ -84,7 +84,7 @@ def ask_question():
         print(f"Generated MongoDB query: {response}")  # Display the generated MongoDB query
         
         data, total_count, executed_query = read_mongo_query(response, "reportschat", "orders", page, limit)
-        
+        print(data,"--------------data")
         if not data:
             return jsonify({"answer": "No data found"}), 200
         
@@ -111,7 +111,7 @@ def ask_question():
             "data": data,
             "total_pages": total_pages,
             "current_page": page,
-            "executed_query": executed_query  # Add the executed query to the response
+            "executed_query": executed_query
         }), 200
 
     except KeyError as e:
@@ -119,9 +119,8 @@ def ask_question():
     except Exception as e:
         return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
 
-#/rag/query/run_mongo_query?user_query=   [GET]  
 
-
+#Api to get the params 
 @app.route('/rag/query/run_mongo_query', methods=['GET'])
 def ask_question_query():
     # data = request.json
@@ -138,7 +137,7 @@ def ask_question_query():
         print(f"Generated MongoDB query: {response}")  # Display the generated MongoDB query
         
         data, total_count, executed_query = read_mongo_query(response, "reportschat", "orders", page, limit)
-        
+        print(data,"--------------data")
         if not data:
             return jsonify({"answer": "No data found"}), 200
         
@@ -165,7 +164,7 @@ def ask_question_query():
             "data": data,
             "total_pages": total_pages,
             "current_page": page,
-            "executed_query": executed_query  # Add the executed query to the response
+            "executed_query": executed_query
         }), 200
 
     except KeyError as e:

@@ -305,6 +305,28 @@ prompt = [
         ]
     }
 
+    Example 21.1 - what is the order count in june 2024.
+    The MongoDB command will be like this: {
+        "aggregate": [
+            {
+                "$match": {
+                    "ScheduledDate": {
+                        "$gte": 1717200000000,
+                        "$lte": 1719771600000
+                    }
+                }
+            },
+            {
+                "$group": {
+                    "_id": null,
+                    "count": {
+                        "$sum": 1
+                    }
+                }
+            }
+        ]
+    }
+
     Example 22 - Give me the total count of orders for july 2024.
     The MongoDB command will be like this: {
         "aggregate": [
@@ -363,7 +385,7 @@ prompt = [
         {
             "$group": {
                 "_id": null,
-                "revenue": {
+                "count": {
                     "$sum": "$Price"
                     }
                 }
@@ -409,7 +431,7 @@ prompt = [
         {
             "$group": {
                 "_id": null,
-                "totalRevenue": {
+                "count": {
                     "$sum": "$Price"
                     }
                 }
@@ -417,7 +439,7 @@ prompt = [
         ]
     }
 
-     Example 27 - What is the revenue generated from Renje Ramesan for last month?
+    Example 27 - What is the revenue generated from Renje Ramesan for last month?
     The MongoDB command will be like this: {
         "aggregate": [
             {
@@ -432,7 +454,7 @@ prompt = [
             {
                 "$group": {
                     "_id": null,
-                    "totalRevenue": {
+                    "count": {
                         "$sum": "$Price"
                     }
                 }
@@ -440,6 +462,27 @@ prompt = [
         ]
     }
 
+    Example 28 - what is the largest order in june 2024?
+    The MongoDB command will be like this: {
+           "aggregate": [
+            {
+               "$match": {
+                "ScheduledDate": {
+                    "$gte": 1717200000000,
+                    "$lte": 1719771600000
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "count": {
+                    "$max": "$Price"
+                    }
+                }
+            }
+        ]
+    }
 
 
     The query code should be a valid MongoDB query in JSON format.
