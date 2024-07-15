@@ -103,14 +103,14 @@ def ask_question():
             answer = f"The result is {data[0]['totalRevenue']}"
         elif 'revenue' in data[0]:
             answer = f"The result is {data[0]['revenue']}"
+        elif 'customerwisePrice' in data[0]:
+           answer = "The result is: " + ", ".join([f"name: {item['_id']}, price: {item['customerwisePrice']}" for item in data])
         else:
-            answer = f"In format : The result is {data[0]}"
+            answer = {"result": data}
 
         return jsonify({
             "answer": answer,
             "data": data,
-            "total_pages": total_pages,
-            "current_page": page,
             "executed_query": executed_query
         }), 200
 
@@ -119,13 +119,10 @@ def ask_question():
     except Exception as e:
         return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
 
-
-#Api to get the params 
+# API to get the params 
 @app.route('/rag/query/run_mongo_query', methods=['GET'])
 def ask_question_query():
-    # data = request.json
     question = request.args.get('user_query')
-    # question = data.get("question")
     page = 1
     limit = 100
     
@@ -143,27 +140,15 @@ def ask_question_query():
         
         total_pages = math.ceil(total_count / limit)
         
-        # Determine the key and format the answer accordingly
-        if 'count' in data[0]:
-            answer = f"The result is {data[0]['count']}"
-        elif 'avgPrice' in data[0]:
-            answer = f"The result is {data[0]['avgPrice']}"
-        elif 'averagePrice' in data[0]:
-            answer = f"The result is {data[0]['averagePrice']}"
-        elif 'totalPrice' in data[0]:
-            answer = f"The result is {data[0]['totalPrice']}"
-        elif 'totalRevenue' in data[0]:
-            answer = f"The result is {data[0]['totalRevenue']}"
-        elif 'revenue' in data[0]:
-            answer = f"The result is {data[0]['revenue']}"
+        # Format the answer for customer total prices
+        if '_id' in data[0] and 'totalPrice' in data[0]:
+            answer = {i + 1: {"name": item['_id'], "total_price": item['totalPrice']} for i, item in enumerate(data)}
         else:
-            answer = f"In format : The result is {data[0]}"
+            answer = {"result": data}
 
         return jsonify({
             "answer": answer,
             "data": data,
-            "total_pages": total_pages,
-            "current_page": page,
             "executed_query": executed_query
         }), 200
 

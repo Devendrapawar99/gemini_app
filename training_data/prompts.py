@@ -416,29 +416,6 @@ prompt = [
     }
 
 
-    Example 26 - What is the revenue for the user 'Star cement co LLC' in june 2024?
-    The MongoDB command will be like this: {
-    "aggregate": [
-        {
-            "$match": {
-                "UserDetails.fullName": {"$regex": ".*Star cement co LLC.*", "$options": "i"},
-                "ScheduledDate": {
-                    "$gte": 1717200000000,
-                    "$lt": 1719771600000
-                }
-            }
-        },
-        {
-            "$group": {
-                "_id": null,
-                "count": {
-                    "$sum": "$Price"
-                    }
-                }
-            }
-        ]
-    }
-
     Example 27 - What is the revenue generated from Renje Ramesan for last month?
     The MongoDB command will be like this: {
         "aggregate": [
@@ -484,7 +461,71 @@ prompt = [
         ]
     }
 
+    Example 29 - Give me the price of customer Star cement co LLC ?
+    The MongoDB command will be like this: {
+        "aggregate": [
+            { "$match": {"UserDetails.fullName": {"$regex": ".*star cement co LLC.*", "$options": "i"}}},
+            { "$group": {"_id": "$UserDetails.fullName", "customerwisePrice": { "$sum": "$PriceTTC" }}}
+        ]
+    }
+
+    Example 30 - price of Star cement co LLC ?
+    The MongoDB command will be like this: {
+        "aggregate": [
+            { "$match": {"UserDetails.fullName": {"$regex": ".*star cement co LLC.*", "$options": "i"}}},
+            { "$group": {"_id": "$UserDetails.fullName", "customerwisePrice": { "$sum": "$PriceTTC" }}}
+        ]
+    }
+
+    Example 30 - "What is the revenue for the user Star cement co LLC in may 2024"
+    The MongoDB command will be like this: {
+    "aggregate": [
+        {
+            "$match": {
+                "UserDetails.fullName": {"$regex": ".*Star cement co LLC.*", "$options": "i"},
+                "ScheduledDate": {
+                    "$gte": 1717200000000,
+                    "$lt": 1719771600000
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "customerwisePrice": {
+                    "$sum": "$PriceTTC"
+                    }
+                }
+            }
+        ]
+    }
+
+
 
     The query code should be a valid MongoDB query in JSON format.
     """
 ]
+
+
+# Example 26 - What is the revenue for the user 'Star cement co LLC' in june 2024?
+#     The MongoDB command will be like this: {
+#     "aggregate": [
+#         {
+#             "$match": {
+#                 "UserDetails.fullName": {"$regex": ".*Star cement co LLC.*", "$options": "i"},
+#                 "ScheduledDate": {
+#                     "$gte": 1717200000000,
+#                     "$lt": 1719771600000
+#                 }
+#             }
+#         },
+#         {
+#             "$group": {
+#                 "_id": null,
+#                 "count": {
+#                     "$sum": "$Price"
+#                     }
+#                 }
+#             }
+#         ]
+#     }
