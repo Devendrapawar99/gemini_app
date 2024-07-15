@@ -113,8 +113,8 @@ prompt = [
             {
                 "$match": {
                     "ScheduledDate": {
-                        "$gte": 1680290400000,
-                        "$lte": 1682809400000
+                        "$gte": 1680307200000,
+                        "$lte": 1682899199000
                     }
                 }
             },
@@ -129,14 +129,14 @@ prompt = [
         ]
     }
 
-    Example 14 - Give me the total count of orders for june 2023.
+    Example 14 - Give me the total count of orders for may 2023.
     The MongoDB command will be like this: {
         "aggregate": [
             {
                 "$match": {
                     "ScheduledDate": {
-                        "$gte": 1685639400000,
-                        "$lte": 1688119400000
+                        "$gte": 1682899200000,
+                        "$lte": 1685577599000
                     }
                 }
             },
@@ -157,8 +157,8 @@ prompt = [
             {
                 "$match": {
                     "ScheduledDate": {
-                        "$gte": 1685639400000,
-                        "$lte": 1687999400000
+                        "$gte": 1685577600000,
+                        "$lte": 1688169599000
                     }
                 }
             },
@@ -179,8 +179,8 @@ prompt = [
             {
                 "$match": {
                     "ScheduledDate": {
-                        "$gte": 1704128000000,
-                        "$lte": 1706678000000
+                        "$gte": 1704067200000,
+                        "$lte": 1706745599000
                     }
                 }
             },
@@ -201,8 +201,8 @@ prompt = [
             {
                 "$match": {
                     "ScheduledDate": {
-                        "$gte": 1706728000000,
-                        "$lte": 1709205200000
+                        "$gte": 1706745600000,
+                        "$lte": 1709251199000
                     }
                 }
             },
@@ -223,8 +223,8 @@ prompt = [
             {
                 "$match": {
                     "ScheduledDate": {
-                        "$gte": 1709302000000,
-                        "$lte": 1711902000000
+                        "$gte": 1709251200000,
+                        "$lte": 1711929599000
                     }
                 }
             },
@@ -245,8 +245,8 @@ prompt = [
             {
                 "$match": {
                     "ScheduledDate": {
-                        "$gte": 1711912000000,
-                        "$lte": 1714460000000
+                        "$gte": 1711929600000,
+                        "$lte": 1714521599000
                     }
                 }
             },
@@ -267,8 +267,8 @@ prompt = [
             {
                 "$match": {
                     "ScheduledDate": {
-                        "$gte": 1714550000000,
-                        "$lte": 1717150000000
+                        "$gte": 1714521600000,
+                        "$lte": 1717196400000
                     }
                 }
             },
@@ -290,7 +290,7 @@ prompt = [
                 "$match": {
                     "ScheduledDate": {
                         "$gte": 1717200000000,
-                        "$lte": 1719771600000
+                        "$lte": 1719791999000
                     }
                 }
             },
@@ -312,7 +312,7 @@ prompt = [
                 "$match": {
                     "ScheduledDate": {
                         "$gte": 1717200000000,
-                        "$lte": 1719771600000
+                        "$lte": 1719791999000
                     }
                 }
             },
@@ -333,8 +333,8 @@ prompt = [
             {
                 "$match": {
                     "ScheduledDate": {
-                        "$gte": 1719779200000,
-                        "$lte": 1722370800000
+                        "$gte": 1719792000000,
+                        "$lte": 1722470399000
                     }
                 }
             },
@@ -378,7 +378,7 @@ prompt = [
                 "$match": {
                     "ScheduledDate": {
                     "$gte": 1717200000000,
-                    "$lte": 1719771600000
+                    "$lte": 1719791999000
                     }
                 }
            },
@@ -399,8 +399,8 @@ prompt = [
             {
                 "$match": {
                     "ScheduledDate": {
-                        "$gte": 1704128000000,
-                        "$lte": 1719771600000
+                        "$gte": 1704067200000,
+                        "$lte": 1719791999000
                     }
                 }
             },
@@ -423,8 +423,8 @@ prompt = [
                 "$match": {
                     "SalesPerson.name": {"$regex": ".*Renje Ramesan.*", "$options": "i"},
                     "ScheduledDate": {
-                        "$gte": 1719779200000,
-                        "$lte": 1722370800000
+                        "$gte": 1717200000000,
+                        "$lte": 1719791999000
                     }
                 }
             },
@@ -446,7 +446,7 @@ prompt = [
                "$match": {
                 "ScheduledDate": {
                     "$gte": 1717200000000,
-                    "$lte": 1719771600000
+                    "$lte": 1719791999000
                 }
             }
         },
@@ -461,7 +461,7 @@ prompt = [
         ]
     }
 
-    Example 29 - Give me the price of customer Star cement co LLC ?
+    Example 29 - Give me the price of customer star cement co LLC ?
     The MongoDB command will be like this: {
         "aggregate": [
             { "$match": {"UserDetails.fullName": {"$regex": ".*star cement co LLC.*", "$options": "i"}}},
@@ -469,7 +469,7 @@ prompt = [
         ]
     }
 
-    Example 30 - price of Star cement co LLC ?
+    Example 30 - price of star cement co LLC ?
     The MongoDB command will be like this: {
         "aggregate": [
             { "$match": {"UserDetails.fullName": {"$regex": ".*star cement co LLC.*", "$options": "i"}}},
@@ -477,26 +477,28 @@ prompt = [
         ]
     }
 
-    Example 30 - "What is the revenue for the user Star cement co LLC in may 2024"
+    Example 31 - revenue of star cement co LLC ?
+    The MongoDB command will be like this: {
+        "aggregate": [
+            { "$match": {"UserDetails.fullName": {"$regex": ".*star cement co LLC.*", "$options": "i"}}},
+            { "$group": {"_id": "$UserDetails.fullName", "customerwisePrice": { "$sum": "$PriceTTC" }}}
+        ]
+    }
+
+    
+    Example 32 - "revenue of star cement co LLC in may 2024"
     The MongoDB command will be like this: {
     "aggregate": [
         {
             "$match": {
-                "UserDetails.fullName": {"$regex": ".*Star cement co LLC.*", "$options": "i"},
+                "UserDetails.fullName": {"$regex": ".*star cement co LLC.*", "$options": "i"},
                 "ScheduledDate": {
-                    "$gte": 1717200000000,
-                    "$lt": 1719771600000
+                    "$gte": 1714521600000,
+                    "$lte": 1717196400000
                 }
             }
         },
-        {
-            "$group": {
-                "_id": null,
-                "customerwisePrice": {
-                    "$sum": "$PriceTTC"
-                    }
-                }
-            }
+         { "$group": {"_id": "$UserDetails.fullName", "customerwisePrice": { "$sum": "$PriceTTC" }}}
         ]
     }
 
