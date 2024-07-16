@@ -502,32 +502,87 @@ prompt = [
         ]
     }
 
+    Example 33 - Give me the profit in June 2024?
+    The MongoDB command will be like this: {
+    "aggregate": [
+        {
+            "$match": {
+                "ScheduledDate": {
+                    "$gte": 1717200000000,
+                    "$lte": 1719791999000
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "total_price": {
+                    "$sum": "$Price"
+                },
+                "total_hauler_price": {
+                    "$sum": "$HaulerPrice"
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "count": {
+                    "Price": "$total_price",
+                    "Hauler Price": "$total_hauler_price",
+                    "Profit": {
+                        "$subtract": ["$total_price", "$total_hauler_price"]
+                       }
+                    }
+                }
+            }
+        ]
+    }
+
+
+    Example 34 - Give me the profit in 2024?
+    The MongoDB command will be like this: {
+    "aggregate": [
+        {
+            "$match": {
+                "ScheduledDate": {
+                    "$gte": 1704067200000,
+                    "$lte": 1735689599000
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "total_price": {
+                    "$sum": "$Price"
+                },
+                "total_hauler_price": {
+                    "$sum": "$HaulerPrice"
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "count": {
+                    "Price": "$total_price",
+                    "Hauler Price": "$total_hauler_price",
+                    "Profit": {
+                        "$subtract": ["$total_price", "$total_hauler_price"]
+                       }
+                    }
+                }
+            }
+        ]
+    }
+
+
+
+
 
 
     The query code should be a valid MongoDB query in JSON format.
     """
 ]
 
-
-# Example 26 - What is the revenue for the user 'Star cement co LLC' in june 2024?
-#     The MongoDB command will be like this: {
-#     "aggregate": [
-#         {
-#             "$match": {
-#                 "UserDetails.fullName": {"$regex": ".*Star cement co LLC.*", "$options": "i"},
-#                 "ScheduledDate": {
-#                     "$gte": 1717200000000,
-#                     "$lt": 1719771600000
-#                 }
-#             }
-#         },
-#         {
-#             "$group": {
-#                 "_id": null,
-#                 "count": {
-#                     "$sum": "$Price"
-#                     }
-#                 }
-#             }
-#         ]
-#     }
