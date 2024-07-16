@@ -1,4 +1,5 @@
 textapp/
 textapp/Lib/site-packages/.DS_Store
 .env
-.training_data/__pycache__/prompts.cpython-312.pyc
+*.pyc
+training_data/__pycache__/prompts.cpython-312.pyc
