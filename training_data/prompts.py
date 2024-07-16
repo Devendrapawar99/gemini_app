@@ -570,12 +570,15 @@ prompt = [
                     "Hauler Price": "$total_hauler_price",
                     "Profit": {
                         "$subtract": ["$total_price", "$total_hauler_price"]
-                       }
                     }
                 }
             }
-        ]
-    }
+        }
+    ]
+}
+
+The result is, Price: ${{"$total_price":,.2f"}}, Hauler Price: ${{"$total_hauler_price":,.2f"}}, Profit: ${{"$subtract": ["$total_price", "$total_hauler_price"]}}
+
 
 
 
