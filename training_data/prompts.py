@@ -527,7 +527,7 @@ prompt = [
         {
             "$project": {
                 "_id": 0,
-                "count": {
+                "ProfitData": {
                     "Price": "$total_price",
                     "Hauler Price": "$total_hauler_price",
                     "Profit": {
@@ -565,7 +565,7 @@ prompt = [
         {
             "$project": {
                 "_id": 0,
-                "count": {
+                "ProfitData": {
                     "Price": "$total_price",
                     "Hauler Price": "$total_hauler_price",
                     "Profit": {
@@ -577,7 +577,47 @@ prompt = [
     ]
 }
 
-The result is, Price: ${{"$total_price":,.2f"}}, Hauler Price: ${{"$total_hauler_price":,.2f"}}, Profit: ${{"$subtract": ["$total_price", "$total_hauler_price"]}}
+
+    Example 35 - Give me the profit of Star cement co LLC in June 2024?
+    The MongoDB command will be like this: {
+    "aggregate": [
+        {
+            "$match": {
+                "ScheduledDate": {
+                    "$gte": 1717200000000,
+                    "$lte": 1719791999000
+                },
+                "UserDetails.fullName": {
+                    "$regex": "Star cement co LLC",
+                    "$options": "i"
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "total_price": {
+                    "$sum": "$Price"
+                },
+                "total_hauler_price": {
+                    "$sum": "$HaulerPrice"
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "ProfitData": {
+                    "Price": "$total_price",
+                    "Hauler Price": "$total_hauler_price",
+                    "Profit": {
+                        "$subtract": ["$total_price", "$total_hauler_price"]
+                    }
+                }
+            }
+        }
+    ]
+}
 
 
 
