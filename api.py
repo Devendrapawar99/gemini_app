@@ -105,6 +105,14 @@ def ask_question():
             answer = f"The result is {data[0]['revenue']}"
         elif 'customerwisePrice' in data[0]:
            answer = "The result is: " + ", ".join([f"name: {item['_id']}, price: {item['customerwisePrice']}" for item in data])
+        elif 'ProfitData' in data[0]:
+           profit_data = data[0]['ProfitData']
+           answer = (
+               f"The result is:\n"
+               f"**Hauler Price**: **{profit_data['Hauler Price']:.2f}**,\n"
+               f"**Price**: **{profit_data['Price']:.2f}**,\n"
+               f"**Profit**: **{profit_data['Profit']:.2f}**"
+            )
         else:
             answer = {"result": data}
 
@@ -158,6 +166,14 @@ def ask_question_query():
             answer = f"The result is {data[0]['revenue']}"
         elif 'customerwisePrice' in data[0]:
            answer = "The result is: " + ", ".join([f"name: {item['_id']}, price: {item['customerwisePrice']}" for item in data])
+        elif 'ProfitData' in data[0]:
+           profit_data = data[0]['ProfitData']
+           answer = (
+               f"The result is:\n"
+               f"**Hauler Price**: **{profit_data['Hauler Price']:.2f}**,\n"
+               f"**Price**: **{profit_data['Price']:.2f}**,\n"
+               f"**Profit**: **{profit_data['Profit']:.2f}**"
+            )
         else:
             answer = {"result": data}
 
