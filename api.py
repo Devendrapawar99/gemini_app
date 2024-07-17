@@ -108,9 +108,9 @@ def ask_question():
         elif 'ProfitData' in data[0]:
            profit_data = data[0]['ProfitData']
            answer = (
-               f"The result is:\n"
-               f"**Hauler Price**: **{profit_data['Hauler Price']:.2f}**,\n"
-               f"**Price**: **{profit_data['Price']:.2f}**,\n"
+               f"The result is:"
+               f"**Price**: **{profit_data['Price']:.2f}**,"
+               f"**Hauler Price**: **{profit_data['Hauler Price']:.2f}**,"
                f"**Profit**: **{profit_data['Profit']:.2f}**"
             )
         else:
@@ -170,8 +170,8 @@ def ask_question_query():
            profit_data = data[0]['ProfitData']
            answer = (
                f"The result is:"
-               f"**Hauler Price**: **{profit_data['Hauler Price']:.2f}**,"
                f"**Price**: **{profit_data['Price']:.2f}**,"
+               f"**Hauler Price**: **{profit_data['Hauler Price']:.2f}**,"
                f"**Profit**: **{profit_data['Profit']:.2f}**"
             )
         else:
