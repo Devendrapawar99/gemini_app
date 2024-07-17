@@ -620,8 +620,159 @@ prompt = [
 }
 
 
+    Example 36 - Give me the profit of first quarter in 2024?
+    The MongoDB command will be like this: {
+    "aggregate": [
+        {
+            "$match": {
+                "ScheduledDate": {
+                    "$gte": 1704067200000,
+                    "$lte": 1711929599000
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "total_price": {
+                    "$sum": "$Price"
+                },
+                "total_hauler_price": {
+                    "$sum": "$HaulerPrice"
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "ProfitData": {
+                    "Price": "$total_price",
+                    "Hauler Price": "$total_hauler_price",
+                    "Profit": {
+                        "$subtract": ["$total_price", "$total_hauler_price"]
+                       }
+                    }
+                }
+            }
+        ]
+    }
+
+    Example 37 - Give me the profit of second quarter in 2024?
+    The MongoDB command will be like this: {
+    "aggregate": [
+        {
+            "$match": {
+                "ScheduledDate": {
+                    "$gte": 1711929600000,
+                    "$lte": 1719791999000
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "total_price": {
+                    "$sum": "$Price"
+                },
+                "total_hauler_price": {
+                    "$sum": "$HaulerPrice"
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "ProfitData": {
+                    "Price": "$total_price",
+                    "Hauler Price": "$total_hauler_price",
+                    "Profit": {
+                        "$subtract": ["$total_price", "$total_hauler_price"]
+                       }
+                    }
+                }
+            }
+        ]
+    }
+
+    Example 38 - Give me the profit of third quarter in 2024?
+    The MongoDB command will be like this: {
+    "aggregate": [
+        {
+            "$match": {
+                "ScheduledDate": {
+                    "$gte": 1719792000000,
+                    "$lte": 1727654399000
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "total_price": {
+                    "$sum": "$Price"
+                },
+                "total_hauler_price": {
+                    "$sum": "$HaulerPrice"
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "ProfitData": {
+                    "Price": "$total_price",
+                    "Hauler Price": "$total_hauler_price",
+                    "Profit": {
+                        "$subtract": ["$total_price", "$total_hauler_price"]
+                    }
+                }
+            }
+        }
+    ]
+}
+
+    Example 38 - Give me the profit of fourth quarter in 2024?
+    The MongoDB command will be like this: {
+    "aggregate": [
+        {
+            "$match": {
+                "ScheduledDate": {
+                    "$gte": 1727740800000,
+                    "$lte": 1735689599000
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "total_price": {
+                    "$sum": "$Price"
+                },
+                "total_hauler_price": {
+                    "$sum": "$HaulerPrice"
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "ProfitData": {
+                    "Price": "$total_price",
+                    "Hauler Price": "$total_hauler_price",
+                    "Profit": {
+                        "$subtract": ["$total_price", "$total_hauler_price"]
+                    }
+                }
+            }
+        }
+    ]
+}
 
 
+
+
+
+    
 
 
 
