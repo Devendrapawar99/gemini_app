@@ -1,5 +1,6 @@
 import pymongo
 from pymongo import MongoClient
+import re
 import os
 import json
 import math
@@ -27,8 +28,10 @@ def getNewFunc(question):
 
 def get_gemini_response(question):
     print(question, "----question")
+
     model = genai.GenerativeModel('gemini-pro')
     response = model.generate_content([prompt[0], question])
+    print(response,"------------response")
     return response.text.strip()
 
 def read_mongo_query(query, db_name, collection_name, page=1, limit=10):
@@ -78,8 +81,14 @@ def ask_question():
     
     if not question:
         return jsonify({"error": "Question is required"}), 400
-
+    
     try:
+        #specific question
+        if re.search(r'\bwho\s*(are|r)\s*(you|u)\b', question, re.IGNORECASE):
+            return jsonify({
+                "answer": "I am a data retrieval bot developed by Assimilate Technologies Pvt Ltd, here to assist you with your queries."
+            }), 200
+         
         response = get_gemini_response(question)
         print(f"Generated MongoDB query: {response}")  # Display the generated MongoDB query
         
@@ -88,7 +97,6 @@ def ask_question():
         if not data:
             return jsonify({"answer": "No data found"}), 200
         
-        total_pages = math.ceil(total_count / limit)
         
         # Determine the key and format the answer accordingly
         if 'count' in data[0]:
@@ -141,6 +149,12 @@ def ask_question_query():
         return jsonify({"error": "Question is required"}), 400
 
     try:
+        #specific question
+        if re.search(r'\bwho\s*(are|r)\s*(you|u)\b', question, re.IGNORECASE):
+            return jsonify({
+                "answer": "I am a data retrieval bot developed by Assimilate Technologies Pvt Ltd, here to assist you with your queries."
+            }), 200
+        
         response = get_gemini_response(question)
         print(f"Generated MongoDB query: {response}")
         
@@ -149,7 +163,6 @@ def ask_question_query():
         if not data:
             return jsonify({"answer": "No data found"}), 200
         
-        total_pages = math.ceil(total_count / limit)
         
         # Determine the key and format the answer accordingly
         if 'count' in data[0]:

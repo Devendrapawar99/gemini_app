@@ -76,6 +76,7 @@ prompt = [
     - CreatedAt
     - UpdatedAt
 
+    When the user asks 'who are you,' respond with 'I am a data retrieval bot developed by Assimilate Technology, created by Developer Devendra Pawar.'
     
     Example 1 - Orders in Abu Dhabi?
     The MongoDB command will be like this: {"aggregate": [{"$match": {"UserDetails.emirate": "Abu Dhabi"}}, {"$group": {"_id": null, "count": {"$sum": 1}}}]}
