@@ -522,6 +522,12 @@ prompt = [
                 },
                 "total_hauler_price": {
                     "$sum": "$HaulerPrice"
+                },
+                "min_scheduled_date": {
+                    "$min": "$ScheduledDate"
+                },
+                "max_scheduled_date": {
+                    "$max": "$ScheduledDate"
                 }
             }
         },
@@ -533,12 +539,16 @@ prompt = [
                     "Hauler Price": "$total_hauler_price",
                     "Profit": {
                         "$subtract": ["$total_price", "$total_hauler_price"]
-                       }
+                    },
+                    "Date": {
+                        "startDate": "$min_scheduled_date",
+                        "endDate": "$max_scheduled_date"
                     }
                 }
             }
-        ]
-    }
+        }
+    ]
+}
 
 
     Example 34 - Give me the profit in 2024?
@@ -560,6 +570,12 @@ prompt = [
                 },
                 "total_hauler_price": {
                     "$sum": "$HaulerPrice"
+                },
+                "min_scheduled_date": {
+                    "$min": "$ScheduledDate"
+                },
+                "max_scheduled_date": {
+                    "$max": "$ScheduledDate"
                 }
             }
         },
@@ -571,12 +587,17 @@ prompt = [
                     "Hauler Price": "$total_hauler_price",
                     "Profit": {
                         "$subtract": ["$total_price", "$total_hauler_price"]
+                    },
+                    "Date": {
+                        "startDate": "$min_scheduled_date",
+                        "endDate": "$max_scheduled_date"
                     }
                 }
             }
         }
     ]
 }
+
 
 
     Example 35 - Give me the profit of Star cement co LLC in June 2024?
@@ -602,81 +623,12 @@ prompt = [
                 },
                 "total_hauler_price": {
                     "$sum": "$HaulerPrice"
-                }
-            }
-        },
-        {
-            "$project": {
-                "_id": 0,
-                "ProfitData": {
-                    "Price": "$total_price",
-                    "Hauler Price": "$total_hauler_price",
-                    "Profit": {
-                        "$subtract": ["$total_price", "$total_hauler_price"]
-                    }
-                }
-            }
-        }
-    ]
-}
-
-
-    Example 35.1 - Give me the profit of first quarter in 2023?
-    The MongoDB command will be like this: {
-    "aggregate": [
-        {
-            "$match": {
-                "ScheduledDate": {
-                    "$gte": 1672531200000,
-                    "$lte": 1680307199000
-                }
-            }
-        },
-        {
-            "$group": {
-                "_id": null,
-                "total_price": {
-                    "$sum": "$Price"
                 },
-                "total_hauler_price": {
-                    "$sum": "$HaulerPrice"
-                }
-            }
-        },
-        {
-            "$project": {
-                "_id": 0,
-                "ProfitData": {
-                    "Price": "$total_price",
-                    "Hauler Price": "$total_hauler_price",
-                    "Profit": {
-                        "$subtract": ["$total_price", "$total_hauler_price"]
-                    }
-                }
-            }
-        }
-    ]
-}
-
-    Example 35.2 - Give me the profit of second quarter in 2023?
-    The MongoDB command will be like this: {
-    "aggregate": [
-        {
-            "$match": {
-                "ScheduledDate": {
-                    "$gte": 1680220800000,
-                    "$lte": 1688169599000
-                }
-            }
-        },
-        {
-            "$group": {
-                "_id": null,
-                "total_price": {
-                    "$sum": "$Price"
+                "min_scheduled_date": {
+                    "$min": "$ScheduledDate"
                 },
-                "total_hauler_price": {
-                    "$sum": "$HaulerPrice"
+                "max_scheduled_date": {
+                    "$max": "$ScheduledDate"
                 }
             }
         },
@@ -688,89 +640,20 @@ prompt = [
                     "Hauler Price": "$total_hauler_price",
                     "Profit": {
                         "$subtract": ["$total_price", "$total_hauler_price"]
+                    },
+                    "Date": {
+                        "startDate": {
+                            "$toDate": "$min_scheduled_date"
+                        },
+                        "endDate": {
+                            "$toDate": "$max_scheduled_date"
+                        }
                     }
                 }
             }
         }
     ]
 }
-
-    Example 35.3 - Give me the profit of third quarter in 2023?
-    The MongoDB command will be like this: {
-    "aggregate": [
-        {
-            "$match": {
-                "ScheduledDate": {
-                    "$gte": 1672531200000,
-                    "$lte": 1696204799000
-                }
-            }
-        },
-        {
-            "$group": {
-                "_id": null,
-                "total_price": {
-                    "$sum": "$Price"
-                },
-                "total_hauler_price": {
-                    "$sum": "$HaulerPrice"
-                }
-            }
-        },
-        {
-            "$project": {
-                "_id": 0,
-                "ProfitData": {
-                    "Price": "$total_price",
-                    "Hauler Price": "$total_hauler_price",
-                    "Profit": {
-                        "$subtract": ["$total_price", "$total_hauler_price"]
-                    }
-                }
-            }
-        }
-    ]
-}
-
-
-    Example 35.3 - Give me the profit of fourth quarter in 2023?
-    The MongoDB command will be like this: {
-    "aggregate": [
-        {
-            "$match": {
-                "ScheduledDate": {
-                    "$gte": 1696118400000,
-                    "$lte": 1735689599000
-                }
-            }
-        },
-        {
-            "$group": {
-                "_id": null,
-                "total_price": {
-                    "$sum": "$Price"
-                },
-                "total_hauler_price": {
-                    "$sum": "$HaulerPrice"
-                }
-            }
-        },
-        {
-            "$project": {
-                "_id": 0,
-                "ProfitData": {
-                    "Price": "$total_price",
-                    "Hauler Price": "$total_hauler_price",
-                    "Profit": {
-                        "$subtract": ["$total_price", "$total_hauler_price"]
-                    }
-                }
-            }
-        }
-    ]
-}
-
-
 
     Example 36 - Give me the profit of first quarter in 2024?
     The MongoDB command will be like this: {
@@ -791,6 +674,12 @@ prompt = [
                 },
                 "total_hauler_price": {
                     "$sum": "$HaulerPrice"
+                },
+                "min_scheduled_date": {
+                    "$min": "$ScheduledDate"
+                },
+                "max_scheduled_date": {
+                    "$max": "$ScheduledDate"
                 }
             }
         },
@@ -802,12 +691,16 @@ prompt = [
                     "Hauler Price": "$total_hauler_price",
                     "Profit": {
                         "$subtract": ["$total_price", "$total_hauler_price"]
-                       }
                     }
+                },
+                "Date": {
+                    "startDate": "$min_scheduled_date",
+                    "endDate": "$max_scheduled_date"
                 }
             }
-        ]
-    }
+        }
+    ]
+}
 
 
 

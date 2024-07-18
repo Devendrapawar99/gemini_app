@@ -1,3 +1,5 @@
+from datetime import datetime
+from bson import ObjectId
 import pymongo
 from pymongo import MongoClient
 import re
@@ -31,7 +33,7 @@ def get_gemini_response(question):
 
     model = genai.GenerativeModel('gemini-pro')
     response = model.generate_content([prompt[0], question])
-    print(response,"------------response")
+
     return response.text.strip()
 
 def read_mongo_query(query, db_name, collection_name, page=1, limit=10):
@@ -72,6 +74,8 @@ def read_mongo_query(query, db_name, collection_name, page=1, limit=10):
         rows = []
     return rows, total_count, query  # Return the executed query
 
+
+
 @app.route('/ask', methods=['POST'])
 def ask_question():
     data = request.json
@@ -86,7 +90,7 @@ def ask_question():
         #specific question
         if re.search(r'\bwho\s*(are|r)\s*(you|u)\b', question, re.IGNORECASE):
             return jsonify({
-                "answer": "I am a data retrieval bot developed by Assimilate Technologies Pvt Ltd, here to assist you with your queries."
+                "answer": "Hello! I am your dedicated CXO Dashboard Bot, developed by Assimilate Technologies, designed to provide you with a bird's eye view of your business. I specialize in delivering high-level insights and key performance indicators, helping you make informed decisions quickly. Whether you need to check financial information, operational statistics, or strategic overviews, I'm here to assist. How can I help you today?"
             }), 200
          
         response = get_gemini_response(question)
@@ -97,6 +101,20 @@ def ask_question():
         if not data:
             return jsonify({"answer": "No data found"}), 200
         
+
+        # # Example epoch timestamp from profit_data
+        # start_date = 1735689599000
+        # epoch_start_date = start_date / 1000  # Convert milliseconds to seconds
+
+        # # Convert to datetime object
+        # datetime_obj = datetime.utcfromtimestamp(epoch_start_date)
+
+        # # Format the datetime object to show only the date
+        # formatted_date = datetime_obj.strftime('%Y-%m-%d')
+
+        # # Print or use the formatted date
+        # print(formatted_date,"------------custom date")
+                
         
         # Determine the key and format the answer accordingly
         if 'count' in data[0]:
@@ -115,10 +133,25 @@ def ask_question():
            answer = "The result is: " + ", ".join([f"name: {item['_id']}, price: {item['customerwisePrice']}" for item in data])
         elif 'ProfitData' in data[0]:
            profit_data = data[0]['ProfitData']
+           print(profit_data,"---------------profit data")
+           start_date = profit_data['Date']['startDate']
+           print(start_date,"-----------satrt_date")
+           epoch_Start_date = start_date / 1000
+           start_date_obj = datetime.utcfromtimestamp(epoch_Start_date)
+           start_date_formatted = start_date_obj.strftime('%Y-%m-%d')
+
+           end_date = profit_data['Date']['endDate']
+           epoch_End_date=end_date / 1000
+           end_date_obj = datetime.utcfromtimestamp(epoch_End_date)
+           end_date_formatted = end_date_obj.strftime('%Y-%m-%d')
+
+           print(start_date_formatted,end_date_formatted,"-------------formatted dates")
+
            answer = (
-               f"The result is:"
-               f"**Price**: **{profit_data['Price']:.2f}**,"
-               f"**Hauler Price**: **{profit_data['Hauler Price']:.2f}**,"
+               f"The result is:\n"
+               f"**Date Range**: **from {start_date_formatted} to {end_date_formatted}**,\n"
+               f"**Hauler Price**: **{profit_data['Hauler Price']:.2f}**,\n"
+               f"**Price**: **{profit_data['Price']:.2f}**,\n"
                f"**Profit**: **{profit_data['Profit']:.2f}**"
             )
         else:
@@ -152,7 +185,7 @@ def ask_question_query():
         #specific question
         if re.search(r'\bwho\s*(are|r)\s*(you|u)\b', question, re.IGNORECASE):
             return jsonify({
-                "answer": "I am a data retrieval bot developed by Assimilate Technologies Pvt Ltd, here to assist you with your queries."
+                "answer": "Hello! I am your dedicated CXO Dashboard Bot, developed by Assimilate Technologies, designed to provide you with a bird's eye view of your business. I specialize in delivering high-level insights and key performance indicators, helping you make informed decisions quickly. Whether you need to check financial information, operational statistics, or strategic overviews, I'm here to assist. How can I help you today?"
             }), 200
         
         response = get_gemini_response(question)
@@ -181,10 +214,21 @@ def ask_question_query():
            answer = "The result is: " + ", ".join([f"name: {item['_id']}, price: {item['customerwisePrice']}" for item in data])
         elif 'ProfitData' in data[0]:
            profit_data = data[0]['ProfitData']
+           start_date = profit_data['Date']['startDate']
+           epoch_Start_date = start_date / 1000
+           start_date_obj = datetime.utcfromtimestamp(epoch_Start_date)
+           start_date_formatted = start_date_obj.strftime('%Y-%m-%d')
+
+           end_date = profit_data['Date']['endDate']
+           epoch_End_date=end_date / 1000
+           end_date_obj = datetime.utcfromtimestamp(epoch_End_date)
+           end_date_formatted = end_date_obj.strftime('%Y-%m-%d')
+
            answer = (
-               f"The result is:"
-               f"**Price**: **{profit_data['Price']:.2f}**,"
-               f"**Hauler Price**: **{profit_data['Hauler Price']:.2f}**,"
+               f"The result is:\n"
+               f"**Date Range**: **from {start_date_formatted} to {end_date_formatted}**,\n"
+               f"**Hauler Price**: **{profit_data['Hauler Price']:.2f}**,\n"
+               f"**Price**: **{profit_data['Price']:.2f}**,\n"
                f"**Profit**: **{profit_data['Profit']:.2f}**"
             )
         else:
