@@ -87,6 +87,19 @@ prompt = [
     Example 4 - Give me the total of all orders price?
     The MongoDB command will be like this: {"aggregate": [{"$group": {"_id": null, "count": {"$sum": "$Price"}}}]}
 
+    Example 4.1 - Give me the average of all orders price?
+    The MongoDB command will be like this: {"aggregate": [{"$group": {"_id": null, "count": {"$avg": "$Price"}}}]}
+
+    Example 4.2 - average of all orders?
+    The MongoDB command will be like this: {"aggregate": [{"$group": {"_id": null, "count": {"$avg": "$Price"}}}]}
+
+    Example 4.3 - average in June 2024?
+    The MongoDB command will be like this: {"aggregate": [
+    {"$match": {"ScheduledDate": {"$gte": 1717200000000, "$lte": 1719791999000}}},
+    {"$group": {"_id": null, "count": {"$avg": "$Price"}}}
+    ]}
+
+
     Example 5 - Give me the SalesPrice of the order with ID "240600278-2"?
     The MongoDB command will be like this: {"filter": {"OrderId": "Order#1719578812822"}, "count": ["Inquiry.SalesPrice"]}
 
@@ -106,7 +119,7 @@ prompt = [
     The MongoDB command will be like this: {"aggregate": [{"$match": {"Branch.BranchName": "re.life (FZE) Sharjah"}}, {"$group": {"_id": null, "count": {"$sum": 1}}}]}
 
     Example 12 - Count of orders which were sent cross border.
-    The MongoDB command will be like this: {"aggregate": [{"$match": {"Type": "cross_border"}}, {"$group": {"_id": null, "count": {"$sum": 1}}}]}
+    The MongoDB command will be like this: {"aggregate": [{"$match": {"Type": {"$regex": ".*cross_border.*", "$options": "i"}}}, {"$group": {"_id": null, "count": {"$sum": 1}}}]}
 
     Example 13 - Give me the total count of orders for april 2023.
     The MongoDB command will be like this: {
@@ -327,6 +340,30 @@ prompt = [
             }
         ]
     }
+
+    Example 21.2 - orders in june 2024.
+    The MongoDB command will be like this: {
+        "aggregate": [
+            {
+                "$match": {
+                    "ScheduledDate": {
+                        "$gte": 1717200000000,
+                        "$lte": 1719791999000
+                    }
+                }
+            },
+            {
+                "$group": {
+                    "_id": null,
+                    "count": {
+                        "$sum": 1
+                    }
+                }
+            }
+        ]
+    }
+
+    
 
     Example 22 - Give me the total count of orders for july 2024.
     The MongoDB command will be like this: {

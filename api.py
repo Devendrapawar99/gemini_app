@@ -31,7 +31,6 @@ def get_gemini_response(question):
 
     model = genai.GenerativeModel('gemini-pro')
     response = model.generate_content([prompt[0], question])
-    print(response,"------------response")
     return response.text.strip()
 
 def read_mongo_query(query, db_name, collection_name, page=1, limit=10):
@@ -101,10 +100,6 @@ def ask_question():
         # Determine the key and format the answer accordingly
         if 'count' in data[0]:
             answer = f"The result is {data[0]['count']}"
-        elif 'avgPrice' in data[0]:
-            answer = f"The result is {data[0]['avgPrice']}"
-        elif 'averagePrice' in data[0]:
-            answer = f"The result is {data[0]['averagePrice']}"
         elif 'totalPrice' in data[0]:
             answer = f"The result is {data[0]['totalPrice']}"
         elif 'totalRevenue' in data[0]:
@@ -167,10 +162,6 @@ def ask_question_query():
         # Determine the key and format the answer accordingly
         if 'count' in data[0]:
             answer = f"The result is {data[0]['count']}"
-        elif 'avgPrice' in data[0]:
-            answer = f"The result is {data[0]['avgPrice']}"
-        elif 'averagePrice' in data[0]:
-            answer = f"The result is {data[0]['averagePrice']}"
         elif 'totalPrice' in data[0]:
             answer = f"The result is {data[0]['totalPrice']}"
         elif 'totalRevenue' in data[0]:
