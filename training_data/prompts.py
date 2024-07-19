@@ -533,13 +533,12 @@ prompt = [
                     "Hauler Price": "$total_hauler_price",
                     "Profit": {
                         "$subtract": ["$total_price", "$total_hauler_price"]
-                       }
                     }
                 }
             }
-        ]
-    }
-
+        }
+    ]
+}
 
     Example 34 - Give me the profit in 2024?
     The MongoDB command will be like this: {
