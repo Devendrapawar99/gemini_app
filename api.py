@@ -85,7 +85,7 @@ def ask_question():
         #specific question
         if re.search(r'\bwho\s*(are|r)\s*(you|u)\b', question, re.IGNORECASE):
             return jsonify({
-                "answer": "I am a data retrieval bot developed by Assimilate Technologies Pvt Ltd, here to assist you with your queries."
+                "answer": "Hello! I am your dedicated CXO Dashboard Bot, developed by Assimilate Technologies, designed to provide you with a bird's eye view of your business. I specialize in delivering high-level insights and key performance indicators, helping you make informed decisions quickly. Whether you need to check financial information, operational statistics, or strategic overviews, I'm here to assist. How can I help you today?"
             }), 200
          
         response = get_gemini_response(question)
