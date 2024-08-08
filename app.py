@@ -82,7 +82,7 @@ limit = st.number_input("Records per page", min_value=1, value=10, step=1)
 
 # If submit is clicked
 if submit:
-    st.session_state.page = 1  # Reset to the first page for new queries
+    st.session_state.page = 1
     response = get_gemini_response(question, prompt)
     st.write(f"Generated MongoDB query: {response}")  # Display the generated MongoDB query
     st.session_state.response = response  # Save the response to session state
