@@ -8,6 +8,9 @@ from dotenv import load_dotenv
 import google.generativeai as genai  # Ensure this is the correct package name
 from training_data.prompts import prompt
 
+
+
+
 # Load environment variables
 load_dotenv()
 
