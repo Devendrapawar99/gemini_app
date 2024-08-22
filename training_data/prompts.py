@@ -963,9 +963,615 @@ prompt = [
 
 
 
+   Example 100 - Give me the month wise profit of first quarter in 2024?
+    The MongoDB command will be like this: {
+    "aggregate": [
+        {
+            "$match": {
+                "ScheduledDate": {
+                    "$gte": 1704067200000, 
+                    "$lte": 1711929599000  
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": {
+                    "month": {
+                        "$dateToString": {
+                            "format": "%b",
+                            "date": {
+                                "$toDate": "$ScheduledDate"
+                            }
+                        }
+                    }
+                },
+                "total_price": {
+                    "$sum": "$Price"
+                },
+                "total_hauler_price": {
+                    "$sum": "$HaulerPrice"
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "Month": "$_id.month",
+                "ProfitData": {
+                    "Price": "$total_price",
+                    "HaulerPrice": "$total_hauler_price",
+                    "Profit": {
+                        "$subtract": [
+                            "$total_price",
+                            "$total_hauler_price"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "$sort": {
+                "Month": 1
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "MonthWiseProfitData": {
+                    "$push": {
+                        "k": "$Month",
+                        "v": "$ProfitData"
+                    }
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "MonthWiseProfitData": {
+                    "$arrayToObject": "$MonthWiseProfitData"
+                }
+            }
+        }
+    ]
+}
 
+
+
+
+   Example 101 - Give me the month wise profit of second quarter in 2024?
+    The MongoDB command will be like this:{
+    "aggregate": [
+        {
+            "$match": {
+                "ScheduledDate": {
+                    "$gte": 1711929600000,
+                    "$lte": 1719791999000
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": {
+                    "month": {
+                        "$dateToString": {
+                            "format": "%b",
+                            "date": {
+                                "$toDate": "$ScheduledDate"
+                            }
+                        }
+                    }
+                },
+                "total_price": {
+                    "$sum": "$Price"
+                },
+                "total_hauler_price": {
+                    "$sum": "$HaulerPrice"
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "Month": "$_id.month",
+                "ProfitDataa": {
+                    "Price": "$total_price",
+                    "HaulerPrice": "$total_hauler_price",
+                    "Profit": {
+                        "$subtract": [
+                            "$total_price",
+                            "$total_hauler_price"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "$sort": {
+                "Month": 1
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "MonthWiseProfitData": {
+                    "$push": {
+                        "k": "$Month",
+                        "v": "$ProfitData"
+                    }
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "MonthWiseProfitData": {
+                    "$arrayToObject": "$MonthWiseProfitData"
+                }
+            }
+        }
+    ]
+}
+
+   Example 102 - Give me the month wise profit of third quarter in 2024?
+    The MongoDB command will be like this:{
+    "aggregate": [
+        {
+            "$match": {
+                "ScheduledDate": {
+                    "$gte": 1719792000000, 
+                    "$lte": 1727654399000
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": {
+                    "month": {
+                        "$dateToString": {
+                            "format": "%b",
+                            "date": {
+                                "$toDate": "$ScheduledDate"
+                            }
+                        }
+                    }
+                },
+                "total_price": {
+                    "$sum": "$Price"
+                },
+                "total_hauler_price": {
+                    "$sum": "$HaulerPrice"
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "Month": "$_id.month",
+                "ProfitDataa": {
+                    "Price": "$total_price",
+                    "HaulerPrice": "$total_hauler_price",
+                    "Profit": {
+                        "$subtract": [
+                            "$total_price",
+                            "$total_hauler_price"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "$sort": {
+                "Month": 1
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "MonthWiseProfitData": {
+                    "$push": {
+                        "k": "$Month",
+                        "v": "$ProfitData"
+                    }
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "MonthWiseProfitData": {
+                    "$arrayToObject": "$MonthWiseProfitData"
+                }
+            }
+        }
+    ]
+}
+
+   Example 103 - Give me the month wise profit of fourth quarter in 2024?
+    The MongoDB command will be like this: {
+    "aggregate": [
+        {
+            "$match": {
+                "ScheduledDate": {
+                    "$gte": 1727654400000, 
+                    "$lte": 1735516799000
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": {
+                    "month": {
+                        "$dateToString": {
+                            "format": "%b",
+                            "date": {
+                                "$toDate": "$ScheduledDate"
+                            }
+                        }
+                    }
+                },
+                "total_price": {
+                    "$sum": "$Price"
+                },
+                "total_hauler_price": {
+                    "$sum": "$HaulerPrice"
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "Month": "$_id.month",
+                "ProfitDataa": {
+                    "Price": "$total_price",
+                    "HaulerPrice": "$total_hauler_price",
+                    "Profit": {
+                        "$subtract": [
+                            "$total_price",
+                            "$total_hauler_price"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "$sort": {
+                "Month": 1
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "MonthWiseProfitData": {
+                    "$push": {
+                        "k": "$Month",
+                        "v": "$ProfitData"
+                    }
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "MonthWiseProfitData": {
+                    "$arrayToObject": "$MonthWiseProfitData"
+                }
+            }
+        }
+    ]
+}
+
+
+
+
+
+`# NO
+   Example 104 - Give me the month wise profit of first quarter in 2023?
+    The MongoDB command will be like this:{
+    "aggregate": [
+        {
+            "$match": {
+                "ScheduledDate": {
+                    "$gte": 1672531200000, 
+                    "$lte": 1680393599000
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": {
+                    "month": {
+                        "$dateToString": {
+                            "format": "%b",
+                            "date": {
+                                "$toDate": "$ScheduledDate"
+                            }
+                        }
+                    }
+                },
+                "total_price": {
+                    "$sum": "$Price"
+                },
+                "total_hauler_price": {
+                    "$sum": "$HaulerPrice"
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "Month": "$_id.month",
+                "ProfitDataa": {
+                    "Price": "$total_price",
+                    "HaulerPrice": "$total_hauler_price",
+                    "Profit": {
+                        "$subtract": [
+                            "$total_price",
+                            "$total_hauler_price"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "$sort": {
+                "Month": 1
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "MonthWiseProfitData": {
+                    "$push": {
+                        "k": "$Month",
+                        "v": "$ProfitData"
+                    }
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "MonthWiseProfitData": {
+                    "$arrayToObject": "$MonthWiseProfitData"
+                }
+            }
+        }
+    ]
+}
 
     
+    
+   # No 
+   Example 105 - Give me the month wise profit of second quarter in 2023?
+    The MongoDB command will be like this:{
+    "aggregate": [
+        {
+            "$match": {
+                "ScheduledDate": {
+                    "$gte": 1680220800000, 
+                    "$lte": 1688255999000
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": {
+                    "month": {
+                        "$dateToString": {
+                            "format": "%b",
+                            "date": {
+                                "$toDate": "$ScheduledDate"
+                            }
+                        }
+                    }
+                },
+                "total_price": {
+                    "$sum": "$Price"
+                },
+                "total_hauler_price": {
+                    "$sum": "$HaulerPrice"
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "Month": "$_id.month",
+                "ProfitDataa": {
+                    "Price": "$total_price",
+                    "HaulerPrice": "$total_hauler_price",
+                    "Profit": {
+                        "$subtract": [
+                            "$total_price",
+                            "$total_hauler_price"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "$sort": {
+                "Month": 1
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "MonthWiseProfitData": {
+                    "$push": {
+                        "k": "$Month",
+                        "v": "$ProfitData"
+                    }
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "MonthWiseProfitData": {
+                    "$arrayToObject": "$MonthWiseProfitData"
+                }
+            }
+        }
+    ]
+}
+
+    
+    
+    
+   Example 106 - Give me the month wise profit of third quarter in 2023?
+    The MongoDB command will be like this:{
+    "aggregate": [
+        {
+            "$match": {
+                "ScheduledDate": {
+                    "$gte": 1672531200000, 
+                    "$lte": 1696204799000
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": {
+                    "month": {
+                        "$dateToString": {
+                            "format": "%b",
+                            "date": {
+                                "$toDate": "$ScheduledDate"
+                            }
+                        }
+                    }
+                },
+                "total_price": {
+                    "$sum": "$Price"
+                },
+                "total_hauler_price": {
+                    "$sum": "$HaulerPrice"
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "Month": "$_id.month",
+                "ProfitDataa": {
+                    "Price": "$total_price",
+                    "HaulerPrice": "$total_hauler_price",
+                    "Profit": {
+                        "$subtract": [
+                            "$total_price",
+                            "$total_hauler_price"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "$sort": {
+                "Month": 1
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "MonthWiseProfitData": {
+                    "$push": {
+                        "k": "$Month",
+                        "v": "$ProfitData"
+                    }
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "MonthWiseProfitData": {
+                    "$arrayToObject": "$MonthWiseProfitData"
+                }
+            }
+        }
+    ]
+}
+    
+    
+    
+
+   Example 107 - Give me the month wise profit of fourth quarter in 2023?
+    The MongoDB command will be like this:{
+    "aggregate": [
+        {
+            "$match": {
+                "ScheduledDate": {
+                    "$gte": 1696118400000, 
+                    "$lte": 1703980799000
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": {
+                    "month": {
+                        "$dateToString": {
+                            "format": "%b",
+                            "date": {
+                                "$toDate": "$ScheduledDate"
+                            }
+                        }
+                    }
+                },
+                "total_price": {
+                    "$sum": "$Price"
+                },
+                "total_hauler_price": {
+                    "$sum": "$HaulerPrice"
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "Month": "$_id.month",
+                "ProfitDataa": {
+                    "Price": "$total_price",
+                    "HaulerPrice": "$total_hauler_price",
+                    "Profit": {
+                        "$subtract": [
+                            "$total_price",
+                            "$total_hauler_price"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "$sort": {
+                "Month": 1
+            }
+        },
+        {
+            "$group": {
+                "_id": null,
+                "MonthWiseProfitData": {
+                    "$push": {
+                        "k": "$Month",
+                        "v": "$ProfitData"
+                    }
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "MonthWiseProfitData": {
+                    "$arrayToObject": "$MonthWiseProfitData"
+                }
+            }
+        }
+    ]
+}
+
 
 
 
@@ -973,3 +1579,11 @@ prompt = [
     """
 ]
 
+
+
+
+# Give me the month wise profit of first quarter in 2024?
+
+# Give me the month wise profit of second quarter in 2024?
+
+# Give me the month wise profit of year 2024?  
