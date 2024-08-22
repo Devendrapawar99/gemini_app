@@ -7,7 +7,8 @@ import math
 from dotenv import load_dotenv
 import google.generativeai as genai  # Ensure this is the correct package name
 from training_data.prompts import prompt
-
+import pandas as pd
+import altair as alt
 
 
 
